@@ -84,6 +84,7 @@ An rnn that encodes input using a stack of GRU cells with optional residual conn
 
 ## Attention Mechanisms
 Typical attention scores:
+
 <img src="luong-score.png">
 
 ### Luong Attention Mechanism
@@ -98,8 +99,12 @@ by Jointly Learning to Align and Translate](https://arxiv.org/pdf/1409.0473.pdf)
     score(h[t], h[s]) = v . tanh(W . concat(h[t], h[s]))
     
 ### Temporal Attention Mechanism
+Temporal attention mechanism as described in [A Deep Reinforced Model For Abstractive
+Summarization](https://arxiv.org/pdf/1705.04304.pdf). This form of attention has shown impressive results at the task of machine summarization as it decreases the probabilities over portions of the encoder output that have had high probabilities in previous decoding steps therefore reducing excessive repetition in generated sequences.
 
 ### Decoder Attention Mechanism
+Intra-decoder attention mechanism as described in [A Deep Reinforced Model For Abstractive
+Summarization](https://arxiv.org/pdf/1705.04304.pdf). Reduces repetition in machine generated output sequences.
 
 ## Self Critical Loss Function
 
