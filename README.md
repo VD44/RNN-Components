@@ -2,7 +2,24 @@
 Tensorflow RNN components implemented as simply as possible
 
 ## Contents
-@@
+* [RNN CELLS](#rnn-cells)
+  * [RNN Cell](#rnn-cell)
+  * [LSTM Cell](#lstm-cell)
+  * [LSTM Cell with Peepholes](#lstm-cell-with-peepholes)
+  * [mLSTM Cell with Peepholes](#mlstm-cell-with-peepholes)
+  * [mLSTM Cell with L2 regularization](#mlstm-cell-with-l2-regularization)
+  * [GRU Cell](#gru-cell)
+* [Datasets](#datasets)
+  * [SNLI](#snli)
+  * [SQuAD](#squad)
+  * [Wikitext](#wikitext)
+* [Pretrained Vectors](#pretrained-vectors)
+  * [GloVe](#glove)
+  * [ELMo](#elmo)
+  * [Pretrained Language Model](#pretrained-language-model)
+* [Training](#training)
+* [Saved Params](#saved-params)
+* [Papers](#papers)
 
 ## RNN CELLS
 A collection of different variants of RNN, LSTM, and GRU cells.
@@ -32,13 +49,19 @@ GRU cell as described in [Learning Phrase Representations using RNN Encoder–De
 Several preset RNNs to use in your code or as a reference.
 
 ### Bidirectional LSTM
-Encodes inputs in forward and reverse time order and then concatenates the resulting out puts and states using an LSTM cell.
+Encodes inputs in forward and reverse time order and then concatenates the resulting outputs and states using an LSTM cell.
 
 ### Bidirectional GRU
+Encodes inputs in forward and reverse time order and then concatenates the resulting outputs and states using an GRU cell.
 
 ### Stacked LSTM
+An rnn that encodes input using a stack of LSTM cells with optional residual connections after a specified depth.
 
 ### Stacked GRU
+An rnn that encodes input using a stack of GRU cells with optional residual connections after a specified depth.
+
+## Attention Mechanisms
+
 
 ### Luong Attention Mechanism
 
@@ -46,7 +69,14 @@ Encodes inputs in forward and reverse time order and then concatenates the resul
 
 ### Temporal Attention Mechanism
 
+### Decoder Attention Mechanism
+
 ## Self Critical Loss Function
 
-@desc@
+Self critical loss function as described in [A Deep Reinforced Model for Abstractive
+Summarization](https://arxiv.org/pdf/1705.04304.pdf) to reward objective function in addition to typical cross entropy loss used for seq2seq machine learning tasks. Pseudocode for loss below:
+    
+    ml_losses = cross_entropy(logits, targets)
+    rl_losses = (metric(sampled_outputs, targets) - metric(greedy_outputs, targets)) * cross_entropy(logits, sample_outputs)
+    losses = gamma * rl_losses + (1 - gamma) * ml_losses
 
