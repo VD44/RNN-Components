@@ -67,8 +67,9 @@ GRU cell as described in [Learning Phrase Representations using RNN Encoder–De
 Several preset RNNs to use in your code or as a reference.
 
 ### Bidirectional LSTM
-Encodes inputs in forward and reverse time order and then concatenates the resulting outputs and states using an LSTM cell. The bidirectional lstm has shown impressive results when used as the first layer in Googles GNMT translation model described in *[Google’s Neural Machine Translation System: Bridging the Gap
+Encodes inputs in forward and reverse time order and then concatenates the resulting outputs and states using an LSTM cell. The bidirectional lstm has shown impressive results when used as the first layer in Googles GNMT translation model described in [Google’s Neural Machine Translation System: Bridging the Gap
 between Human and Machine Translation](https://arxiv.org/pdf/1609.08144.pdf).
+<img src="gnmt-encoder">
 
 ### Bidirectional GRU
 Encodes inputs in forward and reverse time order and then concatenates the resulting outputs and states using an GRU cell.
