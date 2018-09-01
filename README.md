@@ -9,16 +9,17 @@ Tensorflow RNN components implemented as simply as possible
   * [mLSTM Cell with Peepholes](#mlstm-cell-with-peepholes)
   * [mLSTM Cell with L2 regularization](#mlstm-cell-with-l2-regularization)
   * [GRU Cell](#gru-cell)
-* [Datasets](#datasets)
-  * [SNLI](#snli)
-  * [SQuAD](#squad)
-  * [Wikitext](#wikitext)
-* [Pretrained Vectors](#pretrained-vectors)
-  * [GloVe](#glove)
-  * [ELMo](#elmo)
-  * [Pretrained Language Model](#pretrained-language-model)
-* [Training](#training)
-* [Saved Params](#saved-params)
+* [RNN Presets](#rnn-presets)
+  * [Bidirectional LSTM](#bidirectional-lstm)
+  * [Bidirectional GRU](#bidirectional-gru)
+  * [Stacked LSTM](#stacked-lstm)
+  * [Stacked GRU](#stacked-gru)
+* [Attention Mechanisms](#attention-mechanisms)
+  * [Luong Attention Mechanism](#luong-attention-mechanism)
+  * [Bahdanau Attention Mechanism](#bahdanau-attention-mechanism)
+  * [Temporal Attention Mechanism](#temporal-attention-mechanism)
+  * [Decoder Attention Mechanism](#decoder-attention-mechanism)
+* [Self Critical Loss Function](#self-critical-loss-function)
 * [Papers](#papers)
 
 ## RNN CELLS
@@ -62,7 +63,6 @@ An rnn that encodes input using a stack of GRU cells with optional residual conn
 
 ## Attention Mechanisms
 
-
 ### Luong Attention Mechanism
 
 ### Bahdanau Attention Mechanism
@@ -80,3 +80,4 @@ Summarization](https://arxiv.org/pdf/1705.04304.pdf) to reward objective functio
     rl_losses = (metric(sampled_outputs, targets) - metric(greedy_outputs, targets)) * cross_entropy(logits, sample_outputs)
     losses = gamma * rl_losses + (1 - gamma) * ml_losses
 
+## Papers
