@@ -29,13 +29,30 @@ A collection of different variants of RNN, LSTM, and GRU cells.
 Simplest of RNN cells, features a single sigmoid layer at each time step.
 
 ### LSTM Cell
-Basic LSTM cell as described in [Long Short-Term Memory](http://www.bioinf.jku.at/publications/older/2604.pdf) with optional dropout.
+Basic LSTM cell as described in [Long Short-Term Memory](http://www.bioinf.jku.at/publications/older/2604.pdf) with optional dropout. For simplicity purposes, all of the mathematical logic is made clearly visibile and is implemented in a minimalistic fashion:
+```python
+def lstm_cell(x, c, h, units, scope='lstm_cell', 
+    w_init=tf.random_normal_initializer(stddev=0.02), 
+    b_init=tf.constant_initializer(0),
+    f_b=1.0, i_kp=1.0, o_kp=1.0):
+    with tf.variable_scope(scope):
+        w_dim = shape_list(x)[1] + shape_list(h)[1]
+        w = tf.get_variable("w", [w_dim, units * 4], initializer=w_init)
+        b = tf.get_variable("b", [units * 4], initializer=b_init)
+        x = _rnn_dropout(x, i_kp)
+        z = tf.matmul(tf.concat([x, h], 1), w) + b
+        i, j, f, o = tf.split(z, 4, 1)
+        c = tf.nn.sigmoid(f + f_b) * c + tf.nn.sigmoid(i) * tf.tanh(j)
+        h = tf.nn.sigmoid(o) * tf.tanh(c)
+        h = _rnn_dropout(h, o_kp)
+        return h, c
+```
 
 ### LSTM Cell with Peepholes
 LSTM cell similar to the one above but with added peepholes as described in [Long Short-Term Memory Recurrent Neural Network Architectures for Large Scale Acoustic Modeling](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43905.pdf).
 
 ### mLSTM Cell
-Multiplicative variant of LSTM as described in [Multiplicative LSTM For Sequence Modeling](https://arxiv.org/pdf/1609.07959.pdf).
+Multiplicative variant of LSTM as described in [Multiplicative LSTM For Sequence Modeling](https://arxiv.org/pdf/1609.07959.pdf). mLSTM is able to use different recurrent transition functions for every possible input, allowing it to be more expressive for autoregressive sequence modeling. mLSTM outperforms standard LSTM and its deeper variants in many sequence modeling tasks.
 
 ### mLSTM Cell with Peepholes
 Multiplicative LSTM with peepholes, combines the concepts of the above two cells.
@@ -44,7 +61,7 @@ Multiplicative LSTM with peepholes, combines the concepts of the above two cells
 Multiplicative LSTM cell with L2 regularization as described in [L2 Regularization for Learning Kernels](https://arxiv.org/pdf/1205.2653.pdf).
 
 ### GRU Cell
-GRU cell as described in [Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation](https://arxiv.org/pdf/1406.1078.pdf).
+GRU cell as described in [Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation](https://arxiv.org/pdf/1406.1078.pdf). GRU cells have shown similar performance to the more popular LSTM cells despite having less trainable parameters.
 
 ## RNN Presets
 Several preset RNNs to use in your code or as a reference.
