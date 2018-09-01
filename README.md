@@ -83,15 +83,20 @@ An rnn that encodes input using a stack of LSTM cells with optional residual con
 An rnn that encodes input using a stack of GRU cells with optional residual connections after a specified depth.
 
 ## Attention Mechanisms
+Typical attention scores:
 <img src="luong-score.png">
 
 ### Luong Attention Mechanism
-Luong attention function as described in [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf). At every decoding step, an attention mechanism produced a probability distribution allowing the decoder to focus on specific parts of the encoder output with varying levels of "attention" or emphasis. Given "query" h[t] (the decoder cell output at time t) and h[s] (the sth encoder output) the luong score for h[s] is computed using the below equation afterwhich all of the scores are normalized using a softmax.
+Luong attention function as described in [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf). At every decoding step, an attention mechanism produced a probability distribution allowing the decoder to focus on specific parts of the encoder output with varying levels of "attention" or emphasis. Given "query" h[t] (the decoder cell output at time t) and h[s] (the sth encoder output) the luong score for h[s] is computed using the below equation afterwhich all of the scores are normalized using a softmax (general score above).
 
     score(h[t], h[s]) = h[t] . W . h[s]
 
 ### Bahdanau Attention Mechanism
+Bahdanau attention function as described in [Neural Machine Translation
+by Jointly Learning to Align and Translate](https://arxiv.org/pdf/1409.0473.pdf) using the "concat" score above as such:
 
+    score(h[t], h[s]) = v . tanh(W . concat(h[t], h[s]))
+    
 ### Temporal Attention Mechanism
 
 ### Decoder Attention Mechanism
