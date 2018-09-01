@@ -1,5 +1,5 @@
 # Better RNN Components
-Tensorflow RNN components implemented as simply as possible
+Tensorflow RNN components implemented as simply as possible.
 
 ## Contents
 * [RNN CELLS](#rnn-cells)
