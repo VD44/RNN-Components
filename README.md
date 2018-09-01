@@ -76,6 +76,7 @@ Encodes inputs in forward and reverse time order and then concatenates the resul
 
 ### Stacked LSTM
 An rnn that encodes input using a stack of LSTM cells with optional residual connections after a specified depth. Googles GNMT translation model features two stacked LSTM's, one further encoding the output of the bidirectional lstm followed by a second to decode the output of the stacked encoder.
+
 <img src="./gnmt-stacked.png" width="50%">
 
 ### Stacked GRU
