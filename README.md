@@ -85,7 +85,8 @@ An rnn that encodes input using a stack of GRU cells with optional residual conn
 ## Attention Mechanisms
 
 ### Luong Attention Mechanism
-Luong attention function as described in [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf). At every decoding step, an attention mechanism produced a probability distribution allowing the decoder to focus on specific parts of the encoder output with varying levels of "attention" or emphasis.
+Luong attention function as described in [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf). At every decoding step, an attention mechanism produced a probability distribution allowing the decoder to focus on specific parts of the encoder output with varying levels of "attention" or emphasis. Given "query" h[t] (the decoder cell output at time t) and h[s] (the sth encoder output) the luong score for h[s] is computed using the below equation afterwhich all of the scores are normalized using a softmax.
+<img src="luong-score.png">
 
 ### Bahdanau Attention Mechanism
 
