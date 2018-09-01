@@ -1,5 +1,5 @@
 import tensorflow as tf
-from rnn_cell import gru_cell, lstm_cell
+from rnn_cells import gru_cell, lstm_cell
 from tensorflow.python.ops import rnn
 
 def shape_list(x):
@@ -8,15 +8,19 @@ def shape_list(x):
     return [ts[i] if ps[i] is None else ps[i] for i in range(len(ps))]
 
 def bi_dir_lstm(X, c_fw, h_fw, c_bw, h_bw, units, scope='bi_dir_lstm'):
-    with tf.variable_scope(scope):
+    with tf.variable_scope(scope) as sc:
         # forward pass
         hs_fw = []
         for idx, x in enumerate(X):
+            if idx > 0:
+                sc.reuse_variables()
             h_fw, c_fw = lstm_cell(x, c_fw, h_fw, 'fw_lstm_cell')
             hs_fw.append(h_fw)
         # backward pass
         hs_bw = []
-        for idx, x in enumerate(reversed(X)):
+        for idx, x in enumerate(tf.reversed(X)):
+            if idx > 0:
+                sc.reuse_variables()
             h_bw, c_bw = lstm_cell(x, c_bw, h_bw, 'bw_lstm_cell')
             hs_bw.append(h_bw)
         # stack outputs
@@ -29,15 +33,19 @@ def bi_dir_lstm(X, c_fw, h_fw, c_bw, h_bw, units, scope='bi_dir_lstm'):
         return X, c, h
 
 def bi_dir_gru(X, h_fw, h_bw, units, scope='bi_dir_gru'):
-    with tf.variable_scope(scope):
+    with tf.variable_scope(scope) as sc:
         # forward pass
         hs_fw = []
         for idx, x in enumerate(X):
+            if idx > 0:
+                sc.reuse_variables()
             h_fw = gru_cell(x, h_fw, 'fw_gru_cell')
             hs_fw.append(h_fw)
         # backward pass
         hs_bw = []
         for idx, x in enumerate(reversed(X)):
+            if idx > 0:
+                sc.reuse_variables()
             h_bw = gru_cell(x, h_bw, 'bw_gru_cell')
             hs_bw.append(h_bw)
         # stack outputs
@@ -49,13 +57,15 @@ def bi_dir_gru(X, h_fw, h_bw, units, scope='bi_dir_gru'):
         return X, h
 
 def stacked_lstm(X, cs, hs, units, depth, non_res_depth, scope='stacked_lstm'):
-    with tf.variable_scope(scope):
+    with tf.variable_scope(scope) as sc:
         for idx, x in enumerate(X):
-            # hande the stack of lstm_cells
+            if idx > 0:
+                sc.reuse_variables()
+            # handle the stack of lstm_cells
             for i in range(depth):
                 h, c = lstm_cell(x, cs[i], hs[i], units, scope="cell_%d" % i)
                 # add residual connections after specified depth
-                if i >= non_res_depth
+                if i >= non_res_depth:
                     x = h + x
                 cs[i] = c
                 hs[i] = h
@@ -63,13 +73,15 @@ def stacked_lstm(X, cs, hs, units, depth, non_res_depth, scope='stacked_lstm'):
         return X, cs, hs
 
 def stacked_gru(X, hs, units, depth, non_res_depth, scope='stacked_gru'):
-    with tf.variable_scope(scope):
+    with tf.variable_scope(scope) as sc:
         for idx, x in enumerate(X):
+            if idx > 0:
+                sc.reuse_variables()
             # hande the stack of lstm_cells
             for i in range(depth):
                 h, c = gru_cell(x, hs[i], units, scope="cell_%d" % i)
                 # add residual connections after specified depth
-                if i >= non_res_depth
+                if i >= non_res_depth:
                     x = h + x
                 hs[i] = h
             X[idx] = h
@@ -88,7 +100,7 @@ def _bahdanau_attn(h, e_out_W, e_out):
     return tf.reduce_sum(v * tf.tanh(e_out_W + h), [2])
 
 def _simple_norm(inp, axis=1):
-    return = inp / tf.expand_dims(tf.reduce_sum(inp, axis), 1)
+    return inp / tf.expand_dims(tf.reduce_sum(inp, axis), 1)
 
 def _temp_attn(h, e_out_W, e_out, score_sum, time):
     score = tf.squeeze(tf.matmul(tf.expand_dims(h, 1), e_out_W, transpose_b=True), [1])
