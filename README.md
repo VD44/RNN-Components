@@ -116,7 +116,7 @@ Summarization](https://arxiv.org/pdf/1705.04304.pdf) to reward objective functio
     losses = gamma * rl_losses + (1 - gamma) * ml_losses
 
 ## Papers
-Main papers used as references:
+Main papers referenced:
 * [Long Short-Term Memory](http://www.bioinf.jku.at/publications/older/2604.pdf)
 * [Long Short-Term Memory Recurrent Neural Network Architectures for Large Scale Acoustic Modeling](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43905.pdf)
 * [Multiplicative LSTM For Sequence Modeling](https://arxiv.org/pdf/1609.07959.pdf)
