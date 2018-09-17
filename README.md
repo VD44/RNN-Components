@@ -1,5 +1,5 @@
 # Better RNN Components
-Tensorflow RNN components implemented such that mathematical logic is as visible as possible.
+Tensorflow RNN components implemented such that mathematical logic is immediately apparent.
 
 ## Contents
 * [RNN CELLS](#rnn-cells)
@@ -29,7 +29,7 @@ A collection of different variants of RNN, LSTM, and GRU cells.
 Simplest of RNN cells, features a single sigmoid layer at each time step.
 
 ### LSTM Cell
-Basic LSTM cell as described in [Long Short-Term Memory](http://www.bioinf.jku.at/publications/older/2604.pdf) with optional dropout. For simplicity purposes, all of the mathematical logic is made clearly visibile and is implemented in a minimalistic fashion:
+Basic LSTM cell as described in [Long Short-Term Memory](http://www.bioinf.jku.at/publications/older/2604.pdf) with optional dropout. For simplicity purposes, all of the mathematical logic is made clearly visible and is implemented in a minimalistic fashion:
 ```python
 def lstm_cell(x, c, h, units, scope='lstm_cell', 
     w_init=tf.random_normal_initializer(stddev=0.02), 
@@ -67,15 +67,15 @@ GRU cell as described in [Learning Phrase Representations using RNN Encoder–De
 Several preset RNNs to use in your code or as a reference.
 
 ### Bidirectional LSTM
-Encodes inputs in forward and reverse time order and then concatenates the resulting outputs and states using an LSTM cell. The bidirectional lstm has shown impressive results when used as the first layer in Googles GNMT translation model described in [Google’s Neural Machine Translation System: Bridging the Gap
+Encodes inputs in forward and reverse time order using an LSTM cell and then concatenates the resulting outputs and states. The bidirectional LSTM has shown impressive results when used as the first layer in Googles GNMT translation model described in [Google’s Neural Machine Translation System: Bridging the Gap
 between Human and Machine Translation](https://arxiv.org/pdf/1609.08144.pdf).
 <img src="./gnmt-encoder.png">
 
 ### Bidirectional GRU
-Encodes inputs in forward and reverse time order and then concatenates the resulting outputs and states using an GRU cell.
+Encodes inputs in forward and reverse time order using a GRU cell and then concatenates the resulting outputs and states.
 
 ### Stacked LSTM
-An rnn that encodes input using a stack of LSTM cells with optional residual connections after a specified depth. Googles GNMT translation model features two stacked LSTM's, one further encoding the output of the bidirectional lstm followed by a second to decode the output of the stacked encoder.
+An rnn that encodes input using a stack of LSTM cells with optional residual connections after a specified depth. Googles GNMT translation model features two stacked LSTM's, one further encoding the output of the bidirectional LSTM followed by a second to decode the output of the stacked encoder.
 
 <img src="./gnmt-stacked.png" width="50%">
 
@@ -88,7 +88,7 @@ Typical attention scores:
 <img src="luong-score.png">
 
 ### Luong Attention Mechanism
-Luong attention function as described in [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf). At every decoding step, an attention mechanism produced a probability distribution allowing the decoder to focus on specific parts of the encoder output with varying levels of "attention" or emphasis. Given "query" h[t] (the decoder cell output at time t) and h[s] (the sth encoder output) the luong score for h[s] is computed using the below equation afterwhich all of the scores are normalized using a softmax (general score above).
+Luong attention function as described in [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf). At every decoding step, an attention mechanism produced a probability distribution allowing the decoder to focus on specific parts of the encoder output with varying levels of "attention" or emphasis. Given "query" h[t] (the decoder cell output at time t) and h[s] (the sth encoder output) the luong score for h[s] is computed using the below equation after which all of the scores are normalized using a softmax (general score above).
 
     score(h[t], h[s]) = h[t] . W . h[s]
 
