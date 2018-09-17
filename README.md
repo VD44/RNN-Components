@@ -89,7 +89,7 @@ Typical attention scores:
 <img src="luong-score.png">
 
 ### Luong Attention Mechanism
-Luong attention function as described in [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf). At every decoding step, an attention mechanism produced a probability distribution allowing the decoder to focus on specific parts of the encoder output with varying levels of "attention" or emphasis. Given "query" h[t] (the decoder cell output at time t) and h[s] (the sth encoder output) the luong score for h[s] is computed using the below equation after which all of the scores are normalized using a softmax (general score above).
+Luong attention function as described in [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf). At every decoding step, an attention mechanism produces a probability distribution, allowing the decoder to focus on specific parts of the encoder output with varying levels of "attention" or emphasis. Given "query" h[t] (the decoder cell output at time t) and h[s] (the s'th encoder output) the luong score for h[s] is computed using the below equation after which all of the scores are normalized using a softmax (general score above).
 
     score(h[t], h[s]) = h[t] . W . h[s]
 
