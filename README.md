@@ -69,6 +69,7 @@ Several preset RNNs to use in your code or as a reference.
 ### Bidirectional LSTM
 Encodes inputs in forward and reverse time order using an LSTM cell and then concatenates the resulting outputs and states. The bidirectional LSTM has shown impressive results when used as the first layer in Googles GNMT translation model described in [Google’s Neural Machine Translation System: Bridging the Gap
 between Human and Machine Translation](https://arxiv.org/pdf/1609.08144.pdf).
+<br/>
 <img src="./gnmt-encoder.png">
 
 ### Bidirectional GRU
@@ -76,7 +77,7 @@ Encodes inputs in forward and reverse time order using a GRU cell and then conca
 
 ### Stacked LSTM
 An rnn that encodes input using a stack of LSTM cells with optional residual connections after a specified depth. Googles GNMT translation model features two stacked LSTM's, one further encoding the output of the bidirectional LSTM followed by a second to decode the output of the stacked encoder.
-
+<br/>
 <img src="./gnmt-stacked.png" width="50%">
 
 ### Stacked GRU
@@ -84,7 +85,7 @@ An rnn that encodes input using a stack of GRU cells with optional residual conn
 
 ## Attention Mechanisms
 Typical attention scores:
-
+<br/>
 <img src="luong-score.png">
 
 ### Luong Attention Mechanism
