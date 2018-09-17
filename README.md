@@ -1,5 +1,5 @@
 # Better RNN Components
-Tensorflow RNN components implemented keeping mathematical logic as visible as possible.
+Tensorflow RNN components implemented such that mathematical logic is as visible as possible.
 
 ## Contents
 * [RNN CELLS](#rnn-cells)
